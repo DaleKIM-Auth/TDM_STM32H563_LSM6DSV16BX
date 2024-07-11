@@ -22,7 +22,22 @@
 #include "sai.h"
 
 /* USER CODE BEGIN 0 */
-
+//FlagStatus TdmRxCompleted = SET;
+#if 0
+/**
+  * @brief Rx Transfer completed callback.
+  * @param  hsai pointer to a SAI_HandleTypeDef structure that contains
+  *              the configuration information for SAI module.
+  * @retval None
+  */
+void HAL_SAI_RxCpltCallback(SAI_HandleTypeDef *hsai)
+{
+  /* Prevent unused argument(s) compilation warning */
+  UNUSED(hsai);
+  //HAL_GPIO_WritePin(GPIOA, GPIO_PIN_3, GPIO_PIN_RESET);
+  TdmRxCompleted = SET;
+}
+#endif
 /* USER CODE END 0 */
 
 SAI_HandleTypeDef hsai_BlockA1;
@@ -61,7 +76,7 @@ void MX_SAI1_Init(void)
   hsai_BlockA1.FrameInit.FrameLength = 64;
   hsai_BlockA1.FrameInit.ActiveFrameLength = 1;
   hsai_BlockA1.FrameInit.FSDefinition = SAI_FS_STARTFRAME;
-  hsai_BlockA1.FrameInit.FSPolarity = SAI_FS_ACTIVE_LOW;
+  hsai_BlockA1.FrameInit.FSPolarity = SAI_FS_ACTIVE_HIGH;
   hsai_BlockA1.FrameInit.FSOffset = SAI_FS_FIRSTBIT;
   hsai_BlockA1.SlotInit.FirstBitOffset = 0;
   hsai_BlockA1.SlotInit.SlotSize = SAI_SLOTSIZE_DATASIZE;
@@ -99,7 +114,7 @@ void HAL_SAI_MspInit(SAI_HandleTypeDef* saiHandle)
     PeriphClkInitStruct.PLL2.PLL2R = 2;
     PeriphClkInitStruct.PLL2.PLL2RGE = RCC_PLL2_VCIRANGE_2;
     PeriphClkInitStruct.PLL2.PLL2VCOSEL = RCC_PLL2_VCORANGE_WIDE;
-    PeriphClkInitStruct.PLL2.PLL2FRACN = 6292.0;
+    PeriphClkInitStruct.PLL2.PLL2FRACN = 6292;
     PeriphClkInitStruct.PLL2.PLL2ClockOut = RCC_PLL2_DIVP;
     PeriphClkInitStruct.Sai1ClockSelection = RCC_SAI1CLKSOURCE_PLL2P;
     if (HAL_RCCEx_PeriphCLKConfig(&PeriphClkInitStruct) != HAL_OK)

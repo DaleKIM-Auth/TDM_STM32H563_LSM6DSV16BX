@@ -63,7 +63,7 @@ void Error_Handler(void);
 #define STLK_MCO_GPIO_Port GPIOH
 
 /* USER CODE BEGIN Private defines */
-
+#define USE_TDM_MODE
 /* USER CODE END Private defines */
 
 #ifdef __cplusplus

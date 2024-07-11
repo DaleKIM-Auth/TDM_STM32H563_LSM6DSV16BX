@@ -23,11 +23,13 @@
 #include "icache.h"
 #include "memorymap.h"
 #include "sai.h"
+#include "tim.h"
 #include "gpio.h"
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
-
+#include "mems_app.h"
+#include "lsm6dsv16bx.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -50,7 +52,7 @@
 COM_InitTypeDef BspCOMInit;
 
 /* USER CODE BEGIN PV */
-
+FlagStatus freq16khz = SET;
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
@@ -97,8 +99,9 @@ int main(void)
   MX_ICACHE_Init();
   MX_I2C1_Init();
   MX_SAI1_Init();
+  MX_TIM7_Init();
   /* USER CODE BEGIN 2 */
-
+  HAL_TIM_Base_Start_IT(&htim7);
   /* USER CODE END 2 */
 
   /* Initialize leds */
@@ -122,9 +125,14 @@ int main(void)
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
+  lsm6dsv_Init();
   while (1)
   {
-
+    if(freq16khz == SET){
+      //HAL_GPIO_TogglePin(GPIOA, GPIO_PIN_3);
+      MotionSensorProcess();
+      freq16khz = RESET;
+    }
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
@@ -191,6 +199,16 @@ void SystemClock_Config(void)
 }
 
 /* USER CODE BEGIN 4 */
+void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
+{
+  /* Prevent unused argument(s) compilation warning */
+  UNUSED(htim);
+
+  //HAL_GPIO_TogglePin(GPIOA, GPIO_PIN_3);
+  //LSM6DS_AccelerometerReceive();
+
+  freq16khz = SET;
+}
 
 /* USER CODE END 4 */
 
