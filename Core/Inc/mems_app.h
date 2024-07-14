@@ -1,20 +1,19 @@
 #include "main.h"
 
-#define bufferMaxSize 256
+#define NB_BUFFER    5
+#define MOTION_DATA_SIZE (1024 * 3) // X, Y, Z line
 
 typedef struct{
   float x;
   float y;
   float z;
-}MotionSensorAxes_t;
+}MotionAxes_t;
 
 typedef struct{
-  float Buf[bufferMaxSize];
+  float Buf[NB_BUFFER][MOTION_DATA_SIZE];
   uint32_t len;
-}MotionSensorBuffer_t;
+}MotionBuffer_t;
 
-
-
-uint32_t MotionSensorProcess(void);
+uint32_t MotionSensorProcess(MotionAxes_t* value);
 
 
