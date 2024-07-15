@@ -62,7 +62,7 @@ main-build: TDM_STM32H563_LSM6DSV16BX.elf secondary-outputs
 
 # Tool invocations
 TDM_STM32H563_LSM6DSV16BX.elf TDM_STM32H563_LSM6DSV16BX.map: $(OBJS) $(USER_OBJS) C:\WorkSpace\TDM_STM32H563_LSM6DSV16BX\STM32H563ZITX_FLASH.ld makefile objects.list $(OPTIONAL_TOOL_DEPS)
-	arm-none-eabi-gcc -o "TDM_STM32H563_LSM6DSV16BX.elf" @"objects.list" $(USER_OBJS) $(LIBS) -mcpu=cortex-m33 -T"C:\WorkSpace\TDM_STM32H563_LSM6DSV16BX\STM32H563ZITX_FLASH.ld" --specs=nosys.specs -Wl,-Map="TDM_STM32H563_LSM6DSV16BX.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv5-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+	arm-none-eabi-gcc -o "TDM_STM32H563_LSM6DSV16BX.elf" @"objects.list" $(USER_OBJS) $(LIBS) -mcpu=cortex-m33 -T"C:\WorkSpace\TDM_STM32H563_LSM6DSV16BX\STM32H563ZITX_FLASH.ld" --specs=nosys.specs -Wl,-Map="TDM_STM32H563_LSM6DSV16BX.map" -Wl,--gc-sections -static -L"C:\WorkSpace\TDM_STM32H563_LSM6DSV16BX\NanoEdgeAI" --specs=nano.specs -mfpu=fpv5-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
 	@echo 'Finished building target: $@'
 	@echo ' '
 

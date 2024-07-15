@@ -30,6 +30,9 @@
 /* USER CODE BEGIN Includes */
 #include "mems_app.h"
 #include "lsm6dsv16bx.h"
+#include "NanoEdgeAI.h"
+#include "knowledge.h"
+
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -53,6 +56,9 @@ COM_InitTypeDef BspCOMInit;
 
 /* USER CODE BEGIN PV */
 FlagStatus freq16khz = SET;
+MotionAxes_t motionValue;
+BufferManager_t motionBuffer = { .bufIndex = 0, .dataIndex = 0};
+extern BufferManager_t MotionBuffer;
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
@@ -74,7 +80,7 @@ int main(void)
 {
 
   /* USER CODE BEGIN 1 */
-
+	enum neai_state error_code;
   /* USER CODE END 1 */
 
   /* MCU Configuration--------------------------------------------------------*/
@@ -126,13 +132,26 @@ int main(void)
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
   lsm6dsv_Init();
+
+  /* NanoEdgeAI initialization */
+  error_code = neai_oneclass_init(knowledge);
+  if (error_code != NEAI_OK) {
+	  Error_Handler();
+  }
+
+  /* Buffer status initialization */
+  for(int i = 0; i < NUM_BUFFER; i++){
+    MotionBuffer.status[i] = EMPTY;
+  }
+  
   while (1)
   {
     if(freq16khz == SET){
-      //HAL_GPIO_TogglePin(GPIOA, GPIO_PIN_3);
-      MotionSensorProcess();
+      MotionSensorProcess(&motionValue, &motionBuffer);
       freq16khz = RESET;
     }
+
+    NanoEdgeAIProcess(&motionBuffer);
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */

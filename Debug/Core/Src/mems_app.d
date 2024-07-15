@@ -35,7 +35,7 @@ Core/Src/mems_app.o: ../Core/Src/mems_app.c ../Core/Inc/mems_app.h \
  ../Drivers/BSP/STM32H5xx_Nucleo/stm32h5xx_nucleo.h \
  ../Core/Inc/stm32h5xx_nucleo_conf.h \
  ../Drivers/BSP/STM32H5xx_Nucleo/stm32h5xx_nucleo_errno.h \
- ../Core/Inc/lsm6dsv16bx.h
+ ../Core/Inc/NanoEdgeAI.h ../Core/Inc/lsm6dsv16bx.h
 ../Core/Inc/mems_app.h:
 ../Core/Inc/main.h:
 ../Drivers/STM32H5xx_HAL_Driver/Inc/stm32h5xx_hal.h:
@@ -74,4 +74,5 @@ Core/Src/mems_app.o: ../Core/Src/mems_app.c ../Core/Inc/mems_app.h \
 ../Drivers/BSP/STM32H5xx_Nucleo/stm32h5xx_nucleo.h:
 ../Core/Inc/stm32h5xx_nucleo_conf.h:
 ../Drivers/BSP/STM32H5xx_Nucleo/stm32h5xx_nucleo_errno.h:
+../Core/Inc/NanoEdgeAI.h:
 ../Core/Inc/lsm6dsv16bx.h:
