@@ -15,15 +15,22 @@ typedef enum{
     FULL
 }BufferStatus_t;
 
+#ifdef USE_TDM_WITH_SAI
 typedef struct{
   float Buf[NUM_BUFFER][MOTION_DATA_SIZE];
-  BufferStatus_t status[NUM_BUFFER];
-  //BufferStatus_t status;
+  BufferStatus_t status;
   uint32_t bufIndex;
   uint32_t dataIndex;
 }BufferManager_t;
-
-uint32_t MotionSensorProcess(MotionAxes_t* value, BufferManager_t* buffer);
+#else
+typedef struct{
+  float Buf[MOTION_DATA_SIZE];
+  BufferStatus_t status;
+  uint32_t bufIndex;
+  uint32_t dataIndex;
+}BufferManager_t;
+#endif
+void BoardInit(void);
+uint32_t AccelerometerProcess(MotionAxes_t* value, BufferManager_t* buffer);
 uint8_t NanoEdgeAIProcess(BufferManager_t* buffer);
-
 

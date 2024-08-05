@@ -1,5 +1,0 @@
-../Core/Src/lsm6dsv16bx.c:13:6:lsm6dsv_Init	16	static
-../Core/Src/lsm6dsv16bx.c:34:10:lsm6dsv_AccelerationRawGet	32	static
-../Core/Src/lsm6dsv16bx.c:51:17:lsm6dsv_RegWrite	32	static
-../Core/Src/lsm6dsv16bx.c:60:17:lsm6dsv_RegRead	32	static
-../Core/Src/lsm6dsv16bx.c:69:17:lsm6dsv_DataRead	16	static

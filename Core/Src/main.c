@@ -22,7 +22,6 @@
 #include "i2c.h"
 #include "icache.h"
 #include "memorymap.h"
-#include "sai.h"
 #include "tim.h"
 #include "gpio.h"
 
@@ -104,7 +103,6 @@ int main(void)
   MX_GPDMA1_Init();
   MX_ICACHE_Init();
   MX_I2C1_Init();
-  MX_SAI1_Init();
   MX_TIM7_Init();
   /* USER CODE BEGIN 2 */
   HAL_TIM_Base_Start_IT(&htim7);
@@ -131,8 +129,8 @@ int main(void)
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
-  lsm6dsv_Init();
-
+  BoardInit();
+  
   /* NanoEdgeAI initialization */
   error_code = neai_oneclass_init(knowledge);
   if (error_code != NEAI_OK) {
@@ -140,14 +138,12 @@ int main(void)
   }
 
   /* Buffer status initialization */
-  for(int i = 0; i < NUM_BUFFER; i++){
-    MotionBuffer.status[i] = EMPTY;
-  }
-  
+  MotionBuffer.status = EMPTY;
+
   while (1)
   {
     if(freq16khz == SET){
-      MotionSensorProcess(&motionValue, &motionBuffer);
+      AccelerometerProcess(&motionValue, &motionBuffer);
       freq16khz = RESET;
     }
 
