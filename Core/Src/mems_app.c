@@ -76,6 +76,7 @@ uint32_t AccelerometerProcess(MotionAxes_t* value, BufferManager_t* buffer)
   return ret;
 }
 #endif
+
 uint8_t oneclass_result = 0;
 uint32_t current = 0;
 

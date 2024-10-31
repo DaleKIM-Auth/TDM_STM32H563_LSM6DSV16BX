@@ -1,0 +1,3 @@
+../Core/Src/mems_app.c:9:6:BoardInit	8	static
+../Core/Src/mems_app.c:54:10:AccelerometerProcess	32	static
+../Core/Src/mems_app.c:105:9:NanoEdgeAIProcess	24	static

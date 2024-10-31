@@ -1,0 +1,3 @@
+../Core/Src/mems_app.c:9:6:BoardInit	1
+../Core/Src/mems_app.c:54:10:AccelerometerProcess	2
+../Core/Src/mems_app.c:105:9:NanoEdgeAIProcess	2
